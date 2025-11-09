@@ -26,9 +26,15 @@ public class GUI extends JFrame {
 
     public void pedirConfiguracion(){
         try {
-            JOptionPane.showInputDialog(null, "Introduce el tamaño del tablero: ");
+            while(tamano < 3) {
+                tamano = Integer.parseInt(JOptionPane.showInputDialog(null, "Introduce el tamaño del tablero: "));
+            }
+            simbolo1 = JOptionPane.showInputDialog(null, "Introduce el simbolo 1: ").charAt(0);
+            simbolo2 = JOptionPane.showInputDialog(null, "Introduce el simbolo 2: ").charAt(0);
+
         }catch (Exception e){
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error: Error entrada invalida");
+            pedirConfiguracion();
         }
 
     }
