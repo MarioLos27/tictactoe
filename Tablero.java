@@ -17,6 +17,18 @@ public class Tablero {
         }
     }
 
+    public int getFilas() {
+        return filas;
+    }
+
+    public int getColumnas() {
+        return columnas;
+    }
+
+    public char getCelda(int fila, int columna) {
+        return tablero[fila][columna];
+    }
+
     public void mostrar() {
         // Mostrar números de columna
         System.out.print("\n  ");
@@ -52,7 +64,7 @@ public class Tablero {
         if (fila < 0 || fila >= filas || columna < 0 || columna >= columnas) {
             return false;
         }
-        
+
         if (tablero[fila][columna] != ' ') {
             return false;
         }
@@ -66,13 +78,15 @@ public class Tablero {
     }
 
     public boolean hayGanador() {
-        int tamaño = filas; // Asumiendo tablero cuadrado
+        int tamaño = filas;
 
         // Verificar filas
         for (int i = 0; i < filas; i++) {
             boolean ganador = true;
+            if (tablero[i][0] == ' ') continue;
+
             for (int j = 1; j < columnas; j++) {
-                if (tablero[i][0] == ' ' || tablero[i][j] != tablero[i][0]) {
+                if (tablero[i][j] != tablero[i][0]) {
                     ganador = false;
                     break;
                 }
@@ -83,8 +97,10 @@ public class Tablero {
         // Verificar columnas
         for (int j = 0; j < columnas; j++) {
             boolean ganador = true;
+            if (tablero[0][j] == ' ') continue;
+
             for (int i = 1; i < filas; i++) {
-                if (tablero[0][j] == ' ' || tablero[i][j] != tablero[0][j]) {
+                if (tablero[i][j] != tablero[0][j]) {
                     ganador = false;
                     break;
                 }
@@ -92,27 +108,30 @@ public class Tablero {
             if (ganador) return true;
         }
 
-        // Verificar diagonal principal
-        boolean ganadorDiagPrincipal = true;
-        for (int i = 1; i < tamaño; i++) {
-            if (tablero[0][0] == ' ' || tablero[i][i] != tablero[0][0]) {
-                ganadorDiagPrincipal = false;
-                break;
+        if (tablero[0][0] != ' ') {
+            boolean ganadorDiagPrincipal = true;
+            for (int i = 1; i < tamaño; i++) {
+                if (tablero[i][i] != tablero[0][0]) {
+                    ganadorDiagPrincipal = false;
+                    break;
+                }
             }
+            if (ganadorDiagPrincipal) return true;
         }
-        if (ganadorDiagPrincipal) return true;
 
         // Verificar diagonal secundaria
-        boolean ganadorDiagSecundaria = true;
-        for (int i = 1; i < tamaño; i++) {
-            if (tablero[0][tamaño-1] == ' ' ||
-                    tablero[i][tamaño-1-i] != tablero[0][tamaño-1]) {
-                ganadorDiagSecundaria = false;
-                break;
+        if (tablero[0][tamaño-1] != ' ') {
+            boolean ganadorDiagSecundaria = true;
+            for (int i = 1; i < tamaño; i++) {
+                if (tablero[i][tamaño-1-i] != tablero[0][tamaño-1]) {
+                    ganadorDiagSecundaria = false;
+                    break;
+                }
             }
+            if (ganadorDiagSecundaria) return true;
         }
 
-        return ganadorDiagSecundaria;
+        return false;
     }
 
     private boolean tableroLleno() {
@@ -125,5 +144,4 @@ public class Tablero {
         }
         return true;
     }
-
 }
