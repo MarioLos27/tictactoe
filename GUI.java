@@ -6,13 +6,16 @@ import java.awt.*;
 public class GUI extends JFrame {
     Tictactoe tictactoe;
     JButton[][] botones;
-    JLabel turno = new JLabel("Turno actual: ");
+    JLabel turno = new JLabel();
+    JLabel J1 = new JLabel();
+    JLabel J2 = new JLabel();
     JPanel panelTablero;
     JPanel panelInfo;
     JPanel panelControles;
 
     int tamano;
     char simbolo1, simbolo2;
+    String nombreJ1, nombreJ2;
 
     public GUI(){
         setTitle("TicTacToe");
@@ -22,7 +25,7 @@ public class GUI extends JFrame {
 
         pedirConfiguracion();
         crearInterfaz();
-        actualizarTurno();
+        actualizarLabels();
 
         setLocationRelativeTo(null);
         setVisible(true);
@@ -62,6 +65,9 @@ public class GUI extends JFrame {
                 }
             } while (this.simbolo1 == this.simbolo2);
 
+            nombreJ1 = JOptionPane.showInputDialog(null, "Introduce el nombre del Jugador 1");
+            nombreJ2 = JOptionPane.showInputDialog(null, "Introduce el nombre del Jugador 2");
+
             this.tictactoe = new Tictactoe(tamano, simbolo1, simbolo2);
             this.botones = new JButton[tamano][tamano];
 
@@ -75,7 +81,9 @@ public class GUI extends JFrame {
         getContentPane().removeAll();
 
         panelInfo = new JPanel();
+        panelInfo.add(J1);
         panelInfo.add(turno);
+        panelInfo.add(J2);
         this.add(panelInfo, BorderLayout.NORTH);
 
         panelTablero = new JPanel(new GridLayout(tamano, tamano, 5, 5));
@@ -126,7 +134,7 @@ public class GUI extends JFrame {
                 mostrarFin(indice);
             } else {
                 tictactoe.turno.siguiente();
-                actualizarTurno();
+                actualizarLabels();
             }
         }
     }
@@ -141,13 +149,13 @@ public class GUI extends JFrame {
             }
         }
 
-        actualizarTurno();
+        actualizarLabels();
     }
 
     public void nuevoJuego(){
         pedirConfiguracion();
         crearInterfaz();
-        actualizarTurno();
+        actualizarLabels();
     }
 
     public void mostrarFin(int indiceUltimoJugador){
@@ -162,7 +170,6 @@ public class GUI extends JFrame {
 
         JOptionPane.showMessageDialog(null, mensaje);
 
-        // Preguntar si quiere jugar de nuevo
         int opcion = JOptionPane.showConfirmDialog(
                 null,
                 "¿Quieres jugar de nuevo?",
@@ -175,8 +182,13 @@ public class GUI extends JFrame {
         }
     }
 
-    public void actualizarTurno(){
+    public void actualizarLabels(){
         char simbolo = tictactoe.getSimboloActual();
         turno.setText("Turno del jugador: " + simbolo);
+        J1.setText("Nombre del jugador 1: " + nombreJ1);
+        J2.setText("Nombre del jugador 2: " + nombreJ2);
+        J1.setForeground(new Color(255, 0, 0));
+        J2.setForeground(new Color(104, 45, 240));
     }
+
 }

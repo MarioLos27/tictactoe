@@ -80,7 +80,6 @@ public class Tablero {
     public boolean hayGanador() {
         int tamaño = filas;
 
-        // Verificar filas
         for (int i = 0; i < filas; i++) {
             boolean ganador = true;
             if (tablero[i][0] == ' ') continue;
@@ -94,7 +93,6 @@ public class Tablero {
             if (ganador) return true;
         }
 
-        // Verificar columnas
         for (int j = 0; j < columnas; j++) {
             boolean ganador = true;
             if (tablero[0][j] == ' ') continue;
