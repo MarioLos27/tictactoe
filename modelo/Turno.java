@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.modelo;
 
 public class Turno {
     private int turnoActual = 0;

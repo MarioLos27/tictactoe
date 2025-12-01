@@ -1,12 +1,14 @@
-package tictactoe;
+package tictactoe.modelo;
+
+import tictactoe.controlador.Tablero;
 
 import java.util.Scanner;
 
 public class Jugador {
-    private char simbolo;
+    private String simbolo;
     private static Scanner scanner = new Scanner(System.in);
 
-    public Jugador(char simbolo) {
+    public Jugador(String simbolo) {
         this.simbolo = simbolo;
     }
 
@@ -33,9 +35,7 @@ public class Jugador {
         }
     }
 
-
-
-    public char getSimbolo() {
+    public String getSimbolo() {
         return simbolo;
     }
 }
